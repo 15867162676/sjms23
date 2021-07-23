@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+">
+    <!-- 当需要引入外部的配置文件的时候，需要导入一些context的命名空间
+    需要告诉ioc容器这个配置文件在哪里，这样才能加载回来
+    此配置的作用，就是声明配置文件在哪里
+    -->
+    <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
+
+    <!-- spring管理第三方bean -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="username" value="${username}"></property>
+        <property name="password" value="${db.password}"></property>
+        <property name="url" value="${db.url}"></property>
+        <property name="driverClassName" value="${db.driverClassName}"></property>
+    </bean>
+
+    <bean id="person" class="com.springText.bean.Person" autowire="byType">
+    </bean>
+
+</beans>
